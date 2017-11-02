@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<!--
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Lab01</title>
+        <link href="shrimp.ico" rel="icon">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+        <style>
+            img.code {
+                border: 2px solid #34b597;
+            }
+        </style>
+	</head>
+	<body>
+
+	<!-- Header -->
+		<div id="header">
+			<div id="nav-wrapper"> 
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+                        <li><a href="index.html">Homepage</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="team-contract.html">Team Contract</a></li>
+						<li><a href="meeting-minutes.html">Meeting Minutes</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="container"> 
+				
+				<!-- Logo -->
+				<div id="logo" style="font-family: Ubuntu;">
+					<h1><a href="#">team-shrimp-cracker</a></h1>
+					<span class="tag">A robotics team dedicated to jamming the most flavor in a little robot.</span>
+				</div>
+			</div>
+		</div>
+	<!-- Header --> 
+
+	<!-- Main -->
+		<div id="main">
+			<div class="container">
+				<div class="row">
+
+					<!-- Sidebar -->
+					<div id="sidebar" style="width: 20%;" class="4u">
+						<section>
+							<header>
+								<h2>LABWORK</h2>
+							</header>
+							<div class="row">
+								<section class="6u">
+									<ul class="default">
+                                        <li><a href="lab01.html">Lab01</a></li>
+										<li><a href="lab02.html">Lab02</a></li>
+										<li><a href="lab03.html">Lab03</a></li>
+                                        <li><a href="lab04.html">Lab04</a></li>
+										<li><a href="m01.html">Milestone01</a></li>
+										<li><a href="m02.html">Milestone02</a></li>
+										<li><a href="nobody-home.html">Milestone03</a></li>
+                                        <li><a href="nobody-home.html">Milestone04</a></li>
+									</ul>
+								</section>
+							</div>
+						</section>
+			</div>
+					
+					<!-- Content -->
+					<div id="content" class="8u skel-cell-important" style="width:75%;">
+						<section>
+							<header style="margin-bottom:5%; ">
+								<h2>LAB01: MICROCONTROLLERS</h2>
+							</header>
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Objective</h2>
+							<p>In this lab we learned how to use the Arduino Uno and IDE, taking digital and analog inputs and outputting digital and PWM signals.</p>
+                            <p style="font-size:120%; margin-bottom:0;">Equipment</p>
+                            <ul style="margin-left:5%;">
+                                <li>* 1 Arduino Uno</li>
+                                <li>* 1 USB A/B cable</li>
+                                <li>* 1 Continuous rotation servos</li>
+                                <li>* 1 Pushbutton</li>
+                                <li>* 1 LED (any color except IR!)</li>
+                                <li>* 1 Potentiometer</li>
+                                <li>* Several resistors (kΩ range)</li>
+                                <li>* 1 Solderless breadboard</li>
+                            </ul>
+                            
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Communicating between the UNO and IDE</h2>
+                            <p>To test out the capabilities of the Arduino IDE, we first used the example blink program in the IDE to have the built-in LED in the Uno flash.</p>
+                            <img src="images/lab01_c1.PNG" class="code" height=200>
+                            <p>After the code was verified and uploaded to the Uno, the built-in LED on the UNO started to blink.</p>
+                            
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Modifying the Blink Sketch</h2>    
+                            <p>Next, we modified the sketch to blink an external LED connected to digital pin 9 on the UNO. The code was as follows:</p>
+                            <img src="images/lab01_c2.PNG" class="code" height=200>
+                            <p>We added a resistor to lower the current to the LED, as shown in the following image.</p>
+                            <img src="http://i.imgur.com/Rn8bvosm.jpg">
+                            <p>The LED blinked on and off, just as the built in LED did in the previous exercise.</p>
+                            
+                            <h2 style="font-size:200%; margin-botton: 2%;">Using the Serial Monitor and Analog Pins</h2>   
+                            <p style="margin-top:1%;">For this section we hooked up a potentiometer to one of the Arduino’s analog pins. The pot is a variable resistor, and is used in a voltage divider circuit to provide an output to the pin of between 0V and 5V, depending on its position.</p>
+                            <p>To output the measured values, we used the Serial library and the Arduino IDE’s serial monitor tool.</p>
+                            <p>Here is the code that we used:</p>
+                            <img src="images/lab01_c3.PNG" class="code" height=200>
+                            <p>When run, here’s what happens:</p>
+                            <img src="https://thumbs.gfycat.com/NegligibleTerrificGreatdane-size_restricted.gif">
+                            
+                            <h2 style="font-size:200%; margin-top: 2%;">Using the Arduino for Analog Output</h2>   
+                            <p style="margin-top:1%;">To output an analog signal from the Arduino, we chose a digital pin with pulse-width modulation capability. We connected this pin to the LED in series with a resistor. The circuits below show the LED and potentiometer connected to the arduino, as well as the different levels of brightness of the LED.</p>
+                            <img src="http://i.imgur.com/zr5EUwim.jpg">
+                            <img src="http://i.imgur.com/QGjNzXPm.jpg">
+                            <p>We added to our code from the previous section in order to use the potentiometer to adjust the LED brightness. We added a map function that would map the input range (0-1023 for the analog pin) to the correct output range (0-255 for the digital pin). We then used the analogWrite function to write the output value to the digital pin we had chosen. The following oscilloscope graph shows the frequency of the signal and its response to changing analog values.</p>
+                            <img src="http://i.imgur.com/QthYOI4.jpg" width=600>
+                            
+                            <h2 style="font-size:200%; margin-top: 2%;">Applying the Parallax Servos</h2>    
+                            <p style="margin-top:1%;">One of the most important functions for a robot to discover the maze is the ability to “walk”. Here, we used Parallax Continuous Rotation Servos. The white wire was connected to the digital pin “~11” with PWM capability. The red wire was connected to 5V output pin and the black wire was connected to ground “GND”. The oscilloscope was attached to check the frequency and maximum/minimum duty cycle. The code is listed below.</p>
+                            <img src="images/lab01_c4.PNG" class="code" height=300>
+                            <p>When ran, the oscilloscope looked like:</p>
+                            <img src="https://i.imgur.com/B9Udwd5.jpg" width=600>
+                            <p>When the servo ran at full speed as X for yep.write(X) was 0, the duty cycle was 0.5/20=0.025. When the servo stopped as X was 180, the duty cycle was 1.5/20=0.075.</p>
+
+                            <p>The potentiometer was then connected to the servo running with the same code above.</p>
+                            
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Let the Robot Run!</h2>    
+							<p>Finally, we assembled the robot as shown below:</p>
+                            <img src="https://i.imgur.com/vlPUDgf.jpg" height=400>
+                            <img src="http://i.imgur.com/z1QnSDW.jpg" height=400>
+                            <p>To let the robot drive in a square, the code was listed below:</p>
+                            <img src="images/lab01_c5.PNG" class="code" width=500>
+                            <p>The robot ran as shown below:</p>
+                            <img src="https://thumbs.gfycat.com/BlandRashElk-size_restricted.gif">
+						</section>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	<!-- /Main -->
+
+	<!-- Tweet -->
+		<div id="tweet">
+			<div class="container">
+				<section>
+					<blockquote style="font-family:Ubuntu; letter-spacing: 2px;">no bad robots</blockquote>
+				</section>
+			</div>
+		</div>
+	<!-- /Tweet -->
+
+	<!-- Footer -->
+		<div id="footer">
+			<div class="container">
+				<section>
+					<header>
+						<h2></h2>
+                        <span class="byline">Check out the <a href="https://cei-lab.github.io/ece3400/">ECE3400 website</a>!</span>
+					</header>
+				</section>
+			</div>
+		</div>
+
+	<!-- Copyright -->
+		<div id="copyright">
+			<div class="container">
+				website design from <a href="http://templated.co">TEMPLATED</a>  
+			</div>
+		</div>
+
+
+
+	</body>
+</html>

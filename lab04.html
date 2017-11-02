@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<!--
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Lab04</title>
+        <link href="shrimp.ico" rel="icon">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+        <style>
+            h3 {
+                font-size:150%;
+                margin-bottom:1%;
+            }
+            img.code {
+                border: 2px solid #34b597;
+            }
+        </style>
+	</head>
+	<body>
+
+	<!-- Header -->
+		<div id="header">
+			<div id="nav-wrapper"> 
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+                        <li><a href="index.html">Homepage</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="team-contract.html">Team Contract</a></li>
+						<li><a href="meeting-minutes.html">Meeting Minutes</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="container"> 
+				
+				<!-- Logo -->
+				<div id="logo" style="font-family: Ubuntu;">
+				    <h1><a href="index.html">team-shrimp-cracker</a></h1>
+					<span class="tag">A robotics team dedicated to jamming the most flavor in a little robot.</span>
+				</div>
+			</div>
+		</div>
+	<!-- Header --> 
+
+	<!-- Main -->
+		<div id="main">
+			<div class="container">
+				<div class="row">
+
+					<!-- Sidebar -->
+					<div id="sidebar" style="width: 20%;" class="4u">
+						<section>
+							<header>
+								<h2>LABWORK</h2>
+							</header>
+							<div class="row">
+								<section class="6u">
+									<ul class="default">
+                                        <li><a href="lab01.html">Lab01</a></li>
+										<li><a href="lab02.html">Lab02</a></li>
+										<li><a href="lab03.html">Lab03</a></li>
+                                        <li><a href="lab04.html">Lab04</a></li>
+										<li><a href="m01.html">Milestone01</a></li>
+										<li><a href="m02.html">Milestone02</a></li>
+										<li><a href="nobody-home.html">Milestone03</a></li>
+                                        <li><a href="nobody-home.html">Milestone04</a></li>
+									</ul>
+								</section>
+							</div>
+						</section>
+			</div>
+					
+					<!-- Content -->
+					<div id="content" class="8u skel-cell-important" style="width:75%;">
+						<section>
+							<header>
+                                <h2 style="margin-bottom:2%;">LAB04: RADIO COMMUNICATION AND </h2> 
+                                <h2 style="margin-bottom:5%;">MAP DRAWING</h2>
+							</header>
+                            
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Radio Team</h2>
+                            <h3>Prelab</h3>
+                            <p>We began by checking out the <a href="http://maniacbug.github.io/RF24/classRF24.html">reference page of the RF24 Arduino library</a>.</p>
+                            <p>Our job is to send a packet of information that contains the information necessary to update the state. This includes information like walls and treasure locations. The two main ways to transmit this information is through a parallel interface or serial interface. Because for this lab, we only have to display the current position and track previously visited positions, we decided to keep our parallel interface implementation from lab 3. This is because it is easier to implement on an FPGA. Also the information that we are sending from the Arduino to the FPGA does not need that many bits at the moment. We will continue to monitor the interface that we use and may switch to SPI if we feel the need.</p>
+                            
+                            <p style="font-size:120%; margin-bottom:0;">Equipment</p>
+                            <ul style="margin-left:5%;">
+                                <li>* 2 Nordic nRF24L01+ transceivers</li>
+                                <li>* 2 Arduino Unos (one must be shared with the other sub-team)</li>
+                                <li>* 2 USB A/B cables</li>
+                                <li>* 2 radio breakout boards with headers</li>
+                            </ul>
+                            
+                            <h3>Hardware</h3>
+                            <p> We assembled each of the Arduinos with an RF module, adapter board, and a wire for power to the 3.3V output as shown below:</p>
+                            <img src="https://i.imgur.com/6sKpbAE.jpg" width=600>
+                            
+                            <h3 style="margin-top:2%;">Initial Testing</h3>
+                            <p>We first changed the channel numbers:</p>
+                            <img src="images/lab04_c1.PNG" class="code" width=600>
+                            <p>RF24 sketch was uploaded to both of the Arduinos. One serves as a sender and the other serves as a receiver.</p><p>The results for the sender is:</p>
+                            <img src="https://i.imgur.com/nwPMQSG.jpg" alt='test sender' width=600>
+                            <p>The results for the receiver is:</p>
+                            <img src="https://i.imgur.com/I5KD3sp.jpg" alt="test reciever" width=600>
+                            <p>The power level is set to be at minimun which is -18dBm, we lost several packages at around 30 feet and the connection is completely lost at around 40 feet. The serial monitor looks like:</p>
+                            <img src="https://i.imgur.com/7zkPRq9.jpg" alt="package lost" width=600>
+                            
+                            <h3 style="margin-top:2%;">Sending the Maze</h3>
+                            <p>Initially, we are going to send the entire maze every time some part of it is modified. The maze is stored as a two dimensional, 5 x 5 array of chars.</p>
+                            <p>Here is how it is defined:</p>
+                            <img src="images/lab04_c2.PNG" class="code" height=170>
+                            <p>We then created the following sketch to send the array.</p>
+                            <img src="images/lab04_c3.PNG" class="code" width=550>
+                            <p>The code below is for the receiver:</p>
+                            <img src="images/lab04_c4.PNG" class="code" width=550>
+                            <p>The Auto-ACK feature is automatically turned on so we don’t need to bother enabling it.</p>
+                            <p>The result for the sender can be seen below:</p>
+                            <img src="https://i.imgur.com/LJ1bd3x.jpg" alt="maze sender" width=600>
+                            <p>The result for the receiver can be seen below:</p>
+                            <img src="https://i.imgur.com/X5Io9F2.jpg" alt="maze receiver" width=600>
+                            
+                            <h3 style="margin-top:2%;">Only Sending New Info</h3>
+                            <p>Next we modified our sketch to only send the data for parts of the maze that have changed from their last value. For each packet sent, we include a data character and an x and y index of its position in the maze matrix.</p>
+                            <p>Part of the code for the sender is:</p>
+                            <img src="images/lab04_c5.PNG" class="code" width=600>
+                            <p>Part of the code for the receiver is:</p>
+                            <img src="images/lab04_c6.PNG" class="code" width=600>
+                            <p>The result for the sender can be seen below:</p>
+                            <img src="https://i.imgur.com/1wRUjmh.jpg" alt="maze sender" width=600>
+                            <p>The result for the receiver can be seen below:</p>
+                            <img src="https://i.imgur.com/famHGKV.jpg" alt="maze reciever" width=600>
+                            
+                            <h3 style="margin-top:2%;">Sending Shrimpbot's Position</h3>
+                            <p>In order to have the robot’s position updated in real time on the display, we will relay its coordinates over radio to the second Arduino, which ports that information over to the FPGA to be displayed.</p>
+                            <p>We designed for a 4 x 5 two dimensional matrix defined as below:</p>
+                            <img src="images/lab04_c7.PNG" class="code" height=150>
+                            <p>The data is sent as a package containing x-coordinate, y-coordinate, and state. Since the maze is 4 * 5, we need 3 bits both for x- and y-coordinate and 2 bits for the state. We first pack the x-coordinate, y-coordinate, and state to data character in the sender side and unpack in the receiver side. In the sender side, we left shift x-coordinate 5 bits and y-coordinate 2 bits. In the receiver side, we right shift x-coordinate 5 bits. For y-coordinate, we first mask off bits with 00011100 which is 28 in decimal and then right shift 2 bits. For state, we only need to mask off bits with 00000011 which is 3 in decimal. Taking (3, 2) as an example, the code for the sender is:</p>
+                            <img src="images/lab04_c8.PNG" class="code" width=720>
+                            <p>The code for the receiver is:</p>
+                            <img src="images/lab04_c9.PNG" class="code" width=600>
+                            <p>The result for the sender can be seen below:</p>
+                            <img src="https://i.imgur.com/vGv5Cwz.jpg" alt="maze sender" width=600>
+                            <p>The result for the receiver can be seen below:</p>
+                            <img src="https://i.imgur.com/CshWxCI.jpg" alt="maze reciever" width=600>
+                            
+                            <h2 style="font-size:200%; margin-bottom: 2%; margin-top:2%;">FPGA Team</h2>
+                            <h3>Prelab</h3>
+                            <p>First we decided our data transmission scheme for this lab and beyond. We wanted to design a system that can transmit large packets with ease, as this will be necesary for the final competition.</p>
+                            <p>We decided to use this method to send packets…</p>
+                            
+                            <p style="font-size:120%; margin-bottom:0;">Equipment</p>
+                            <ul style="margin-left:5%;">
+                                <li>* 1 FPGA Dev Board</li>
+                                <li>* 1 VGA screen</li>
+                                <li>* 1 VGA cable</li>
+                                <li>* 1 VGA connector</li>
+                                <li>* 1 VGA switch</li>
+                                <li>* Various resistors</li>
+                            </ul>
+                            
+                            <h3>Increasing grid size</h3>
+                            <p>We had already implemented the 4 by 5 grid in the previous lab, so there was no work to be done this week.</p>
+                            
+                            <h3>Receiving packets from the Arduino</h3>
+                            <p>We used a parallel method to read data, where we read data from 5 GPIO pins at once. While this was good for this lab since we did not need many bits, we might choose to use SPI in the future if we need to send more bits. Using the previously agreed upon packet format, we wrote a module to read data sent from the arduino. The packet was 5 bits and contained the grid block that was the current position.</p>
+                            
+                            <h3>Displaying shrimpbot’s position</h3>
+                            <p>Using the data from the previous section, we parse the inputted position and display it on a 4 x 5 grid. We defined a parameter and we updated the appropriate register based on the packet we received.</p>
+                            
+                            <h3>Marking our path</h3>
+                            <p>Next we added functionality to display the previously explored locations in the maze as well as the current position. To do this, we updated the register with value current position to have the value visited.</p>
+                            <p>The following code shows how we updated the grid registers based on the packet that we received and the current value of the register.</p>
+                            <img src="images/lab04_c10.PNG" style="code" height=120>
+                            
+                            <p>This <a href="https://drive.google.com/file/d/0B9RjcO6lwSovc1AtNVptNFJWNUk/view?usp=sharing"> video </a> demonstrates how the FPGA is able to change the current position (marked by the green square) based on the parsing of a packet. The blue squares are the visited ones, while the black is unvisited, and the red represents treasure.</p>
+						</section>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	<!-- /Main -->
+
+	<!-- Tweet -->
+		<div id="tweet">
+			<div class="container">
+				<section>
+					<blockquote style="font-family:Ubuntu; letter-spacing: 2px;">no bad robots</blockquote>
+				</section>
+			</div>
+		</div>
+	<!-- /Tweet -->
+
+	<!-- Footer -->
+		<div id="footer">
+			<div class="container">
+				<section>
+					<header>
+						<h2></h2>
+                        <span class="byline">Check out the <a href="https://cei-lab.github.io/ece3400/">ECE3400 website</a>!</span>
+					</header>
+				</section>
+			</div>
+		</div>
+
+	<!-- Copyright -->
+		<div id="copyright">
+			<div class="container">
+				website design from <a href="http://templated.co">TEMPLATED</a>  
+			</div>
+		</div>
+
+
+	</body>
+</html>

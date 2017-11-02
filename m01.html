@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<!--
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Milestone01</title>
+        <link href="shrimp.ico" rel="icon">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+        <style>
+            img.code {
+                border: 2px solid #34b597;
+            }
+        </style>
+	</head>
+	<body>
+
+	<!-- Header -->
+		<div id="header">
+			<div id="nav-wrapper"> 
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+                        <li><a href="index.html">Homepage</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="team-contract.html">Team Contract</a></li>
+						<li><a href="meeting-minutes.html">Meeting Minutes</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="container"> 
+				
+				<!-- Logo -->
+				<div id="logo" style="font-family: Ubuntu;">
+					<h1><a href="index.html">team-shrimp-cracker</a></h1>
+					<span class="tag">A robotics team dedicated to jamming the most flavor in a little robot.</span>
+				</div>
+			</div>
+		</div>
+	<!-- Header --> 
+
+	<!-- Main -->
+		<div id="main">
+			<div class="container">
+				<div class="row">
+
+					<!-- Sidebar -->
+					<div id="sidebar" style="width: 20%;" class="4u">
+						<section>
+							<header>
+								<h2>LABWORK</h2>
+							</header>
+							<div class="row">
+								<section class="6u">
+									<ul class="default">
+                                        <li><a href="lab01.html">Lab01</a></li>
+										<li><a href="lab02.html">Lab02</a></li>
+										<li><a href="lab03.html">Lab03</a></li>
+                                        <li><a href="lab04.html">Lab04</a></li>
+										<li><a href="m01.html">Milestone01</a></li>
+										<li><a href="m02.html">Milestone02</a></li>
+										<li><a href="nobody-home.html">Milestone03</a></li>
+                                        <li><a href="nobody-home.html">Milestone04</a></li>
+									</ul>
+								</section>
+							</div>
+						</section>
+			</div>
+					
+					<!-- Content -->
+					<div id="content" class="8u skel-cell-important" style="width:75%;">
+						<section>
+							<header style="margin-bottom:5%; ">
+								<h2>MILESTONE01</h2>
+							</header>
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Objective</h2>
+							<p>The purpose of this milestone was to add line following to our robot, through adding sensors and fine-tuning our servos. Our robot was able to follow a straight line and a figure-eight pattern.</p>
+                        
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Sensor Setup</h2>
+                            <p>We attached two sensors to the front of the robot, wide enough to lay outside of the line of tape - one sensor to the left and one to the right. If only one sensor detected a black line, we would know the robot had turned too far to one side and that we would have to correct the course. If both sensors detected a black line, we would know we were at an intersection.</p>
+                            <img src="https://i.imgur.com/NQ6bNpS.jpg" width=300>
+                            
+                            <h2 style="font-size:200%; margin-bottom: 2%; margin-top:2%;">Following a Line</h2>    
+                            <p>In order to follow a line, we read from the sensors and checked to see if a sensor was above the threshold value. We then used a series of conditional statements to determine whether we should keep going forward or correct by turning to the left or right.</p>
+                            <p>The following video shows our robot following a line:</p>
+                            <a href="https://drive.google.com/file/d/0B9RjcO6lwSovQThkWTNoVTdEejQ/view?usp=sharing">
+                                <img src="https://i.imgur.com/zWBnX05.png" alt="Line Following Robot" width=600>
+                            </a>
+                            
+                            <h2 style="font-size:200%; margin-bottom: 2%; margin-top:2%">Figure Eight</h2>   
+                            <p>In order to have our robot follow a figure eight, we modified our previous code in order to ignore an intersection. An intersection was detected when both of the sensors crossed their threshold. The following video shows our robot in action:</p>
+                            <a href="https://drive.google.com/file/d/0B8bwFN4zRmfVYTFiQVRUZHBuaUU/view">
+                                <img src="https://i.imgur.com/1K9o4ZJ.jpg" alt="Figure Eight" width=600>
+                            </a>
+                            <p>The following code was used for the line following:</p>
+                            <img src="images/m01_c1.PNG" class="code" width=500>
+                            <p>As we can see by the code, the robot makes adjustments base on what sensor detects a black line past a certain threshold that was determined through serial read outs.</p>
+                            <p>The figure eight code was as follows:</p>
+                            <img src="images/m01_c2.PNG" class="code" width=800>
+                            <p>We thought that a robot truly following a curve would show more an understanding of line following rather than hardcoding the robot to follow a grid style figure eight.</p>
+                            
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Looking Ahead</h2>   
+                            <p>For our final robot design, we plan to change how our sensors are setup and implement a FSM that controls how our robot moves since we will have omni wheels that can move in any direction. The reason for this digression from normal line following robots is that omni wheel builds traverse grids quicker and the movement pattern is easier to implement. We also plan on implementing a PID style algorithm to make finer adjustments as well as include a sensor at the center of the robot to indicate the start of a turn. This will make line following exceptionally smooth.</p>
+                           
+						</section>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	<!-- /Main -->
+
+	<!-- Tweet -->
+		<div id="tweet">
+			<div class="container">
+				<section>
+					<blockquote style="font-family:Ubuntu; letter-spacing: 2px;">no bad robots</blockquote>
+				</section>
+			</div>
+		</div>
+	<!-- /Tweet -->
+
+	<!-- Footer -->
+		<div id="footer">
+			<div class="container">
+				<section>
+					<header>
+						<h2></h2>
+                        <span class="byline">Check out the <a href="https://cei-lab.github.io/ece3400/">ECE3400 website</a>!</span>
+					</header>
+				</section>
+			</div>
+		</div>
+
+	<!-- Copyright -->
+		<div id="copyright">
+			<div class="container">
+				website design from <a href="http://templated.co">TEMPLATED</a>  
+			</div>
+		</div>
+
+
+
+	</body>
+</html>
