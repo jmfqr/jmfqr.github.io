@@ -92,7 +92,7 @@
 										<li><a href="m01.html">Milestone01</a></li>
 										<li><a href="m02.html">Milestone02</a></li>
 										<li><a href="m03.html">Milestone03</a></li>
-                                        <li><a href="nobody-home.html">Milestone04</a></li>
+                                        <li><a href="m04.html">Milestone04</a></li>
 									</ul>
 								</section>
 							</div>
@@ -146,7 +146,7 @@ void loop() {
                             </code>
                             </pre>
                             </div>
-                            <p>After the code was verified and uploaded to the Uno, the built-in LED on the UNO started to blink, as shown above.</p>
+                            <p style="margin-top:-50px;">After the code was verified and uploaded to the Uno, the built-in LED on the UNO started to blink, as shown above.</p>
                             
                             </div>
                             
@@ -225,25 +225,97 @@ void loop() {
                             </div>
                             
                             <div class="white">
-                            <h2 style="font-size:200%; margin-top: 2%;">Applying the Parallax Servos</h2>    
-                            <p style="margin-top:1%;">One of the most important functions for a robot to discover the maze is the ability to “walk”. Here, we used Parallax Continuous Rotation Servos. The white wire was connected to the digital pin “~11” with PWM capability. The red wire was connected to 5V output pin and the black wire was connected to ground “GND”. The oscilloscope was attached to check the frequency and maximum/minimum duty cycle. The code is listed below.</p>
-                            <img src="images/lab01_c4.PNG" class="code" height=300>
+                            <h2 style="font-size:200%; margin-top: 2%;">Applying the Parallax Servos  &nbsp;
+                                <a href="/code/lab01_4.ino" download>
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </a>
+                            </h2>    
+                            <p style="margin-top:1%;">One of the most important functions for a robot to discover the maze is the ability to “walk”. Here, we used Parallax Continuous Rotation Servos. The white wire was connected to the digital pin “~11” with PWM capability. The red wire was connected to 5V output pin and the black wire was connected to ground “GND”. The oscilloscope was attached to check the frequency and maximum/minimum duty cycle. </p>
+                            <p>The code is listed below.</p>
+                             
+                            <div style="width:50%; display: inline; float:right;">
                             <p>When ran, the oscilloscope looked like:</p>
-                            <img src="https://i.imgur.com/B9Udwd5.jpg" width=600>
+                            <img src="https://i.imgur.com/B9Udwd5.jpg" width=400>
+                            </div>
+                            
+                            <div style="width:45%">
+                            <pre>
+                                <code>
+#include &lt;Servo.h&gt;
+Servo yep;
+void setup() {
+}
+
+void loop() {
+    yep.attach(11);
+    yep.write(0);   
+    // yep.write(X), 
+    // the integer X here can be 0 to 180. 
+    // If X is 90, the servo will stop. 
+    // If X is 0 or 180, it will rotate 
+    // at full speed but in different directions 
+    // for 0 and 180.
+}
+                                </code>
+                            </pre>
+                            </div>
+                            
                             <p>When the servo ran at full speed as X for yep.write(X) was 0, the duty cycle was 0.5/20=0.025. When the servo stopped as X was 180, the duty cycle was 1.5/20=0.075.</p>
 
                             <p>The potentiometer was then connected to the servo running with the same code above.</p>
                             </div>
                             
                             <div class="grey">
-                            <h2 style="font-size:200%; margin-bottom: 2%;">Let the Robot Run!</h2>    
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Let the Robot Run! &nbsp;
+                                <a href="/code/lab01_5.ino" download>
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </a>
+                            </h2>    
 							<p>Finally, we assembled the robot as shown below:</p>
-                            <img src="https://i.imgur.com/vlPUDgf.jpg" height=400>
-                            <img src="http://i.imgur.com/z1QnSDW.jpg" height=400>
-                            <p>To let the robot drive in a square, the code was listed below:</p>
-                            <img src="images/lab01_c5.PNG" class="code" width=500>
+                            <img src="https://i.imgur.com/vlPUDgf.jpg" height=402 style="margin-right:14px; margin-bottom:2%;">
+                            <img src="http://i.imgur.com/z1QnSDW.jpg" height=402 style="margin-bottom: 2%;">
+                            
+                            <div style="width:50%; display: inline; float:right;">
                             <p>The robot ran as shown below:</p>
-                            <img src="https://thumbs.gfycat.com/BlandRashElk-size_restricted.gif">
+                            <img src="https://thumbs.gfycat.com/BlandRashElk-size_restricted.gif" width=400>
+                            </div>
+                           
+                            
+                            <div style="width:45%">
+                            <p>To let the robot drive in a square, a framework of the code is listed below:</p>
+                            <pre>
+                                <code>
+Servo servoLeft;
+Servo servoRight;
+
+// Loop through motion tests
+void loop() {            
+    moveForward();
+    delay(1000);
+    turnRight();
+}
+
+// Motion routines for forward, 
+// reverse, turns, and stop
+void moveForward() { 
+    /* omitted */ 
+}
+void moveBackwards() { 
+    /* omitted */  
+}
+void turnLeft() { 
+    /* omitted */  
+}
+void turnRight() { 
+    /* omitted */  
+}
+void brake() { 
+    /* omitted */  
+}
+                                </code>
+                            </pre>
+<!--                            <img src="images/lab01_c5.PNG" class="code" width=500>-->
+                            </div>
                             </div>
 						</section>
 					</div>
