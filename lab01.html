@@ -36,6 +36,13 @@
             div.white {
                 padding: 3%;
             }
+            pre {
+                font-family: 'Courier'; 
+                font-size: 85%; 
+                margin-left: 10%; 
+                margin-top: -30px; 
+                margin-bottom: -40px;
+            }
         </style>
 	</head>
 	<body>
@@ -121,14 +128,11 @@
                                 </a>
                             </h2>
                             <div style="width:50%; display: inline; float:right;">
-<!--                            <img src="images/lab01-g1.png" width=420 alt="blinking led" style="margin-right:-10px;">-->
                                 <div style='position:relative;padding-bottom:54%'><iframe src='https://gfycat.com/ifr/DistantBraveBoa' frameborder='0' scrolling='no' width='106%' height='120%' style='position:absolute;top:8px;left:0' allowfullscreen></iframe></div>
                             </div>
-                            <div style="width:55%;">
+                            <div style="width:45%;">
                             <p>To test out the capabilities of the Arduino IDE, we first used the example Blink.ino in the IDE to have the Uno's built-in LED flash.</p>
-<!--                            <img src="images/lab01_c1.PNG" class="code" height=200>-->
-                                
-                            <pre style="font-family: 'Courier'; font-size:85%; margin-left:7%; margin-top:-20px; margin-bottom: -40px;">
+                            <pre>
                             <code>
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
@@ -142,36 +146,82 @@ void loop() {
                             </code>
                             </pre>
                             </div>
-                            <p>After the code was verified and uploaded to the Uno, the built-in LED on the UNO started to blink.</p>
+                            <p>After the code was verified and uploaded to the Uno, the built-in LED on the UNO started to blink, as shown above.</p>
                             
                             </div>
                             
                             <div class="grey">
-                            <h2 style="font-size:200%; margin-bottom: 2%;">Modifying the Blink Sketch</h2>    
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Modifying the Blink Sketch &nbsp;
+                                <a href="/code/lab01_2.ino" download>
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </a>
+                            </h2>  
+                            <div style="width:50%; display: inline; float:right;">
+                                <img src="http://i.imgur.com/Rn8bvos.jpg" width=455 style="margin-left:-30px;">
+                            </div>
+                                
+                            <div style="width:45%;">
                             <p>Next, we modified the sketch to blink an external LED connected to digital pin 9 on the UNO. <br>The code was as follows:</p>
-                            <img src="images/lab01_c2.PNG" class="code" height=200>
-                            <p>We added a resistor to lower the current to the LED, as shown in the following image.</p>
-                            <img src="http://i.imgur.com/Rn8bvosm.jpg">
-                            <p>The LED blinked on and off, just as the built in LED did in the previous exercise.</p>
+                            <pre>
+                            <code>
+void setup() {
+    pinMode(9, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(9, HIGH);
+  delay(1000);                       
+  digitalWrite(9, LOW);    
+  delay(1000);                       
+}
+                            </code>
+                            </pre>
+                            </div>
+                            <p>We added a resistor to lower the current to the LED, as shown in the above image.<br>
+                            The LED blinked on and off, just as the built in LED did in the previous exercise.</p>
                             </div>
                             
                             <div class="white">
-                            <h2 style="font-size:200%; margin-botton: 2%;">Using the Serial Monitor and Analog Pins</h2>   
-                            <p style="margin-top:1%;">For this section we hooked up a potentiometer to one of the Arduino’s analog pins. The pot is a variable resistor, and is used in a voltage divider circuit to provide an output to the pin of between 0V and 5V, depending on its position.</p>
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Using the Serial Monitor and Analog Pins  &nbsp;
+                                <a href="/code/lab01_3.ino" download>
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </a>
+                            </h2>
+                            <p>For this section we hooked up a potentiometer to one of the Arduino’s analog pins. The pot is a variable resistor, and is used in a voltage divider circuit to provide an output to the pin of between 0V and 5V, depending on its position.</p>
                             <p>To output the measured values, we used the Serial library and the Arduino IDE’s serial monitor tool.</p>
-                            <p>Here is the code that we used:</p>
-                            <img src="images/lab01_c3.PNG" class="code" height=200>
+                                
+                            <div style="width:50%; display: inline; float:right;">
                             <p>When run, here’s what happens:</p>
-                            <img src="https://thumbs.gfycat.com/NegligibleTerrificGreatdane-size_restricted.gif">
+                            <img src="https://thumbs.gfycat.com/NegligibleTerrificGreatdane-size_restricted.gif" width=455>
+                            </div>
+                              
+                            <div style="width:45%">
+                            <p>Here is the code that we used:</p>
+                            <pre>
+                                <code>
+int value;
+void setup() {
+  // open the serial port at 9600 bps
+  Serial.begin(115200);      
+}
+
+void loop() {
+  int value = 0;
+  value = analogRead(A0);
+  Serial.println("value = " + value);
+}
+                                </code>
+                            </pre>
+                            </div>
                             </div>
                             
                             <div class="grey">
-                            <h2 style="font-size:200%; margin-top: 2%;">Using the Arduino for Analog Output</h2>   
-                            <p style="margin-top:1%;">To output an analog signal from the Arduino, we chose a digital pin with pulse-width modulation capability. We connected this pin to the LED in series with a resistor. The circuits below show the LED and potentiometer connected to the arduino, as well as the different levels of brightness of the LED.</p>
-                            <img src="http://i.imgur.com/zr5EUwim.jpg">
-                            <img src="http://i.imgur.com/QGjNzXPm.jpg">
+                            <h2 style="font-size:200%; margin-bottom: 2%;">Using the Arduino for Analog Output</h2>   
+                            <p>To output an analog signal from the Arduino, we chose a digital pin with pulse-width modulation capability. We connected this pin to the LED in series with a resistor. <br>The circuits below show the LED and potentiometer connected to the arduino, as well as the different levels of brightness of the LED.</p>
+                            <img src="http://i.imgur.com/zr5EUwi.jpg" width=420 style=margin-right:14px;>
+                            <img src="http://i.imgur.com/QGjNzXP.jpg" width=420>
                             <p>We added to our code from the previous section in order to use the potentiometer to adjust the LED brightness. We added a map function that would map the input range (0-1023 for the analog pin) to the correct output range (0-255 for the digital pin). We then used the analogWrite function to write the output value to the digital pin we had chosen. The following oscilloscope graph shows the frequency of the signal and its response to changing analog values.</p>
-                            <img src="http://i.imgur.com/QthYOI4.jpg" width=600>
+                            <img src="http://i.imgur.com/QthYOI4.jpg" width=100%>
                             </div>
                             
                             <div class="white">
