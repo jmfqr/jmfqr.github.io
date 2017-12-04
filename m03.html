@@ -106,7 +106,7 @@
                             
                             <h3 style="margin-top:2%;">DFS</h3>   
                             <div style="width:50%; display: inline; float:right;">
-                                <img src="images/temp.png" style="width:100%; border: 2px solid #f2f2f2;">
+                                <img src="images/dfs_vs_bfs.gif" style="width:100%;">
                             </div>
                                 
                             <div style="width:45%;">
@@ -114,9 +114,6 @@
                             </div>
 
                             <h3>BFS</h3>
-                            <div style="width:50%; display: inline; float:right;">
-                                <img src="images/temp.png" height=300 style="width:100%; border: 2px solid #f2f2f2;">
-                            </div>
                                 
                             <div style="width:45%;">
                             <p>BFS - breadth-first-search - also shares many of the same advantages as DFS. In fact, the only real difference between the two algorithms is the method in which they traverse the maze. The way BFS works is that it first travels to each of the nodes’ child before going down in depth. Other than that, BFS shares the same space and time complexity. The main difficulty is in the context of the robot: the children of a tile are all the adjacent reachable tiles. Unfortunaly, this would mean that the robot would need to backtrack after almost all movement onto the frontier. The robot is limited in its turning speed which makes this algorithm worse in our specific context.</p>
@@ -127,24 +124,32 @@
                             
                             <h3>Weapon Of Choice</h3>
                             <p>We ultimately decided to implement DFS. DFS over BFS seemed like easy choice given our applications and DFS is easily more versatile than left wall-following.</p>
-                            <p>The actual implementation of the algorithm was fairly simple. Many different languages can easily implement the algorithm. The graphics, however, can be tricky. We chose Java because, well, it really the only language that I’m familiar with implementing graphics. I personally hate graphics, and I have to admit that the graphics part was extremely soul sucking but I digress. In order to keep track of the different node sets, we need two different data structures - one for the visited set of nodes and one for the frontier set of nodes. The easiest and most common way to keep track of the visited set is a simple stack. Conveniently, the stack data structure is already implemented, called a Deque. The second data structure needs to be a set to keep track of frontier nodes. A data structure well suited for this task is just a HashSet. The beauty of a HashSet is that you can check and take an element from the set in constant time. This, of course, assumes that the degenerate case of set conflict does not occur, which is rare. The idea is that every time we visit a new node, we push that node onto the stack. We then visit its neighbors in the frontier set. If it has no neighbors in the frontier set, then we pop the node and try again with the next element in the stack. The node at the top of the visited stack denotes where the robot is currently. The high level implementation is show below.</p>
-                            <pre>
+                            <p>The actual implementation of the algorithm was fairly simple. Many different languages can easily implement the algorithm. The graphics, however, can be tricky. We chose Java because, well, it really the only language that I’m familiar with implementing graphics. I personally hate graphics, and I have to admit that the graphics part was extremely soul sucking but I digress. In order to keep track of the different node sets, we need two different data structures - one for the visited set of nodes and one for the frontier set of nodes. </p> 
+                            <p>The easiest and most common way to keep track of the visited set is a simple stack. Conveniently, the stack data structure is already implemented, called a Deque. The second data structure needs to be a set to keep track of frontier nodes. A data structure well suited for this task is just a HashSet. The beauty of a HashSet is that you can check and take an element from the set in constant time. This, of course, assumes that the degenerate case of set conflict does not occur, which is rare. </p>
+                            <div style="width:50%; display: inline; float:right;">
+                                <img src="images/m03-stuff.png" style="width:100%;">
+                            </div>
+                                
+                            <div style="width:45%;">
+                            <p>The idea is that every time we visit a new node, we push that node onto the stack. We then visit its neighbors in the frontier set. If it has no neighbors in the frontier set, then we pop the node and try again with the next element in the stack. The node at the top of the visited stack denotes where the robot is currently. The high level implementation is show below.</p>
+                            
+                            <pre style="margin-left:0;">
                                 <code>
 while (!frontierSet.isEmpty()) {
-        updateJFrame();
-	   Maze[currPos[0]][currPos[1]] = 2;
-	   visit();
-	   ArrayList&lt;int[]&gt; reachableCells = frontier();
-	   addFrontier(reachableCells);
-	   updateVisited(reachableCells);
-	   Thread.sleep(200);
-	   if (!frontierSet.isEmpty()) {
-	           pdateJFrame();
-	   }
+    updateJFrame();
+	Maze[currPos[0]][currPos[1]] = 2;
+	visit();
+	ArrayList&lt;int[]&gt; reachableCells = frontier();
+	addFrontier(reachableCells);
+	updateVisited(reachableCells);
+	Thread.sleep(200);
+	if (!frontierSet.isEmpty()) {
+	        pdateJFrame();
+	}
 }
                                 </code>
                             </pre>
-                                
+                            </div>  
                             <p>This is the general algorithm. We ask the algorithm to pause so that the simulation does not go as fast. Finally, once this algorithm stops, we set the main function to pause before closing the window to indicate that the algorithm is done mapping the maze. This of course shows that the DFS algorithm does indeed terminate and does not loop indefinitely.</p>
                             <pre>
                                 <code>
@@ -258,28 +263,14 @@ bool detectWall(int direction) { ... }
 				</section>
 			</div>
 		</div>
-	<!-- /Tweet -->
-
-	<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-				<section>
-					<header>
-						<h2></h2>
-                        <span class="byline">Check out the <a href="https://cei-lab.github.io/ece3400/">ECE3400 website</a>!</span>
-					</header>
-				</section>
-			</div>
-		</div>
 
 	<!-- Copyright -->
 		<div id="copyright">
 			<div class="container">
-				website design from <a href="http://templated.co">TEMPLATED</a>  
+				website design from <a href="http://templated.co">TEMPLATED</a>
+                <br>
 			</div>
 		</div>
-
-
-
+        
 	</body>
 </html>
